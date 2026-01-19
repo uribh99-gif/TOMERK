@@ -7,30 +7,27 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
   <style>
-    /* הגדרות בסיס */
     body { box-sizing: border-box; font-family: 'Heebo', sans-serif; background-color: #09090b; color: #fff; }
     html { scroll-behavior: smooth; }
     .gradient-text { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     
-    /* תמונת רקע חדשה בשקיפות */
     .page-background {
-        position: fixed; /* נשאר קבוע בגלילה */
-        inset: 0; /* נפרס על כל המסך */
-        background-image: url('BG.png'); /* הנתיב לתמונה החדשה */
-        background-size: cover; /* כיסוי מלא של המסך */
-        background-position: center; /* מרכוז התמונה */
-        background-repeat: no-repeat;
-        opacity: 0.15; /* רמת השקיפות - ניתן לשנות (בין 0.0 ל-1.0) */
-        z-index: -1; /* מיקום מאחורי כל התוכן */
-        pointer-events: none; /* שלא יפריע להקלקות */
+        position: fixed;
+        inset: 0;
+        background-image: url('BG.png');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        z-index: -1;
+        pointer-events: none;
     }
 
-    /* עיצוב כרטיסיות תיק עבודות */
-    .category-card { transition: all 0.4s ease; background: rgba(17, 17, 17, 0.8); /* רקע חצי שקוף לכרטיסייה */ border: 1px solid #222; overflow: hidden; border-radius: 1rem; backdrop-filter: blur(5px); }
-    .category-card:hover { transform: translateY(-5px); border-color: #06b6d4; box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2); }
+    .glass-panel { background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
     
-    /* הבטחה שהתמונה לא תיחתך */
-    .img-container { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.5); overflow: hidden; }
+    .category-card, .skill-card { transition: all 0.4s ease; background: rgba(20, 20, 20, 0.8); border: 1px solid #222; border-radius: 1rem; overflow: hidden; }
+    .category-card:hover, .skill-card:hover { transform: translateY(-5px); border-color: #06b6d4; box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2); }
+    
+    .img-container { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; background: #000; }
     .portfolio-img { width: 100%; height: 100%; object-fit: contain; }
   </style>
  </head>
@@ -42,9 +39,10 @@
    <nav class="fixed top-0 right-0 left-0 z-50 bg-black/80 backdrop-blur-lg border-b border-zinc-800/50 py-4">
     <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
      <div class="flex items-center">
-      <img src="LOGO.jpeg" alt="Tomer Koren Logo" class="h-20 md:h-28 w-auto object-contain">
+      <img src="LOGO.jpeg" alt="Tomer Koren Logo" class="h-16 md:h-24 w-auto object-contain">
      </div>
      <div class="flex items-center gap-6 md:gap-10">
+      <a href="#about" class="text-zinc-400 hover:text-cyan-400 font-medium transition-colors">אודות</a>
       <a href="#portfolio" class="text-zinc-400 hover:text-cyan-400 font-medium transition-colors">תיק עבודות</a> 
       <a href="#contact" class="text-zinc-400 hover:text-cyan-400 font-medium transition-colors">צור קשר</a>
      </div>
@@ -55,15 +53,65 @@
     <div>
      <p class="text-cyan-400 text-xl md:text-2xl mb-4 font-light tracking-widest">כשהתמונה נגמרת – הסאונד מתחיל לעבוד</p>
      <h1 class="text-7xl md:text-9xl font-black mb-4 gradient-text">תומר קורן</h1>
-     <h2 class="text-2xl md:text-4xl font-light text-zinc-400 mb-10">מעצב סאונד | 30 שנות ניסיון</h2>
-     <a href="#portfolio" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-12 py-4 rounded-full transition-all inline-block">לצפייה בפרויקטים</a>
+     <h2 class="text-2xl md:text-4xl font-light text-zinc-400 mb-10">מעצב סאונד</h2>
+     <a href="#portfolio" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-12 py-4 rounded-full transition-all inline-block shadow-lg shadow-cyan-900/20">לצפייה בפרויקטים</a>
+    </div>
+   </section>
+
+   <section id="about" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+     <div class="glass-panel p-8 md:p-12 rounded-3xl mb-16">
+      <h2 class="text-3xl font-bold mb-6 text-cyan-400 border-r-4 border-cyan-500 pr-4">אודות</h2>
+      <p class="text-xl md:text-2xl text-zinc-200 leading-relaxed font-light">
+       מעצב פס קול ועורך סאונד עם 30 שנות ניסיון בהפקות טלוויזיה, קולנוע ופרסום. מתמחה ביצירת סאונד שמספר את הסיפור ומדגיש את החוויה.
+      </p>
+     </div>
+
+     <h3 class="text-2xl font-bold mb-8 text-right text-zinc-400">תחומי התמחות</h3>
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-right">
+      <div class="skill-card p-6">
+       <div class="text-cyan-500 mb-3"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg></div>
+       <h4 class="font-bold text-lg mb-2">עיצוב פסקול ומיקס</h4>
+      </div>
+      <div class="skill-card p-6">
+       <div class="text-cyan-500 mb-3"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg></div>
+       <h4 class="font-bold text-lg mb-2">עריכת סאונד ומיקס</h4>
+      </div>
+      <div class="skill-card p-6">
+       <div class="text-cyan-500 mb-3"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></div>
+       <h4 class="font-bold text-lg mb-2">פוסט־פרודקשן</h4>
+       <p class="text-sm text-zinc-500">השלמת סאונד מלאה</p>
+      </div>
+      <div class="skill-card p-6">
+       <div class="text-cyan-500 mb-3"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"></path></svg></div>
+       <h4 class="font-bold text-lg mb-2">מוזיקה</h4>
+       <p class="text-sm text-zinc-500">בחירה ועריכה לפי צרכי הלקוח</p>
+      </div>
+      <div class="skill-card p-6">
+       <div class="text-cyan-500 mb-3"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+       <h4 class="font-bold text-lg mb-2">אפקטים ופוליז</h4>
+       <p class="text-sm text-zinc-500">חיפוש ועריכה מדויקת</p>
+      </div>
+      <div class="skill-card p-6">
+       <div class="text-cyan-500 mb-3"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg></div>
+       <h4 class="font-bold text-lg mb-2">הקלטת קריינות</h4>
+       <p class="text-sm text-zinc-500">הקלטה ועריכה מקצועית</p>
+      </div>
+      <div class="skill-card p-6">
+       <div class="text-cyan-500 mb-3"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
+       <h4 class="font-bold text-lg mb-2">בימוי קריינים</h4>
+      </div>
+      <div class="skill-card p-6">
+       <div class="text-cyan-500 mb-3"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg></div>
+       <h4 class="font-bold text-lg mb-2">קריינות</h4>
+      </div>
+     </div>
     </div>
    </section>
 
    <section id="portfolio" class="py-24 px-6">
     <div class="max-w-6xl mx-auto">
      <h2 class="text-4xl font-bold mb-16 text-right border-r-4 border-cyan-500 pr-4">תיק עבודות</h2>
-
      <div class="mb-20">
       <h3 class="text-2xl font-bold mb-8 text-cyan-400">דוקומנטרי</h3>
       <div class="grid md:grid-cols-3 gap-8">
@@ -71,69 +119,7 @@
         <div class="img-container"><img src="RIKI.jpeg" alt="ריקי גל" class="portfolio-img"></div>
         <div class="p-5"><h4 class="text-lg font-bold">ריקי גל: נערת רוק</h4></div>
        </div>
-       <div class="category-card">
-        <div class="img-container"><img src="HASHMII.jpeg" alt="השמיעי קולך" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">השמיעי קולך</h4></div>
        </div>
-       <div class="category-card">
-        <div class="img-container"><img src="PATRICK.jpeg" alt="סיפורי חיים" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">סיפורי חיים</h4></div>
-       </div>
-      </div>
-     </div>
-
-     <div class="mb-20">
-      <h3 class="text-2xl font-bold mb-8 text-blue-400">סדרות וקולנוע</h3>
-      <div class="grid md:grid-cols-3 gap-8">
-       <div class="category-card">
-        <div class="img-container"><img src="REDSKY.jpeg" alt="שמיים אדומים" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">שמיים אדומים</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="BITI.jpeg" alt="בתי אהובתי" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">בתי אהובתי</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="ALTISKACH.jpeg" alt="אל תשכח" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">אל תשכח</h4></div>
-       </div>
-      </div>
-     </div>
-
-     <div class="mb-20">
-      <h3 class="text-2xl font-bold mb-8 text-pink-400">ריאליטי</h3>
-      <div class="grid md:grid-cols-3 gap-8">
-       <div class="category-card">
-        <div class="img-container"><img src="HAMEROTZ.jpeg" alt="המרוץ למיליון" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">המרוץ למיליון</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="NINJA.jpeg" alt="נינג'ה ישראל" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">נינג'ה ישראל</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="HATUNAMI.jpeg" alt="חתונה ממבט ראשון" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">חתונה ממבט ראשון</h4></div>
-       </div>
-      </div>
-     </div>
-
-     <div class="mb-20">
-      <h3 class="text-2xl font-bold mb-8 text-green-400">פרסומות</h3>
-      <div class="grid md:grid-cols-3 gap-8">
-       <div class="category-card">
-        <div class="img-container"><img src="LEUMI.jpeg" alt="בנק לאומי" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">בנק לאומי</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="AIG.jpeg" alt="AIG" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">AIG</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="MIZRAH.jpeg" alt="מזרחי טפחות" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">מזרחי טפחות</h4></div>
-       </div>
-      </div>
      </div>
     </div>
    </section>
