@@ -1,183 +1,301 @@
-<!doctype html>
-<html lang="he" dir="rtl" class="h-full">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>תומר קורן | מעצב סאונד</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
-  <style>
-    body { box-sizing: border-box; font-family: 'Heebo', sans-serif; background-color: #09090b; color: #fff; }
-    html { scroll-behavior: smooth; }
-    .gradient-text { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תומר קורן - עיצוב פסקול</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --highlight: #00e5ff;
+            --glow: 0 0 15px var(--highlight), 0 0 30px var(--highlight), 0 0 60px rgba(0, 229, 255, 0.5);
+        }
+
+        * { box-sizing: border-box; }
+
+        body, html {
+            margin: 0; padding: 0;
+            height: 100vh; width: 100vw;
+            /* הרקע מוגדר ישירות כאן כדי שלא ייעלם */
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('BG.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            font-family: 'Assistant', sans-serif;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        /* --- Header --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5vh 5%; background: rgba(0, 0, 0, 0.7);
+            z-index: 100; flex-shrink: 0;
+        }
+        .header-logo { height: 6vh; min-height: 40px; }
+        nav ul { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
+        nav ul li a { 
+            color: #fff; text-decoration: none; font-size: 1.1rem; 
+            font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+        nav ul li a:hover { color: var(--highlight); }
+
+        /* --- Main Content Area --- */
+        .main-fixed-area {
+            flex: 1; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 0 10%;
+        }
+        .hero-title { font-size: 7vh; margin: 0; font-weight: 700; opacity: 0.9; }
+        .hero-slogan { 
+            font-size: 11vh; /* הגדלה משמעותית */
+            color: var(--highlight); 
+            margin: 5px 0 25px 0; 
+            font-weight: 200; 
+            text-shadow: var(--glow); 
+            letter-spacing: 4px;
+            line-height: 1;
+        }
+        .about-on-page {
+            max-width: 800px; background: rgba(0, 0, 0, 0.5);
+            padding: 2.5vh 4vh; border-radius: 20px; font-size: 1.3rem;
+            line-height: 1.5; border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- Dividers --- */
+        .glow-line {
+            height: 1px; background: var(--highlight);
+            box-shadow: 0 0 15px var(--highlight); border: none; width: 100%; flex-shrink: 0;
+        }
+
+        /* --- Work Slider Area --- */
+        .work-section {
+            background: rgba(0, 0, 0, 0.85);
+            position: relative; display: flex; align-items: center; padding: 1.5vh 60px;
+            flex-shrink: 0; height: 26vh;
+        }
+        .slider-wrapper {
+            display: flex; overflow-x: auto; scroll-behavior: smooth;
+            gap: 50px; width: 100%; align-items: flex-end;
+            scrollbar-width: none;
+        }
+        .slider-wrapper::-webkit-scrollbar { display: none; }
+
+        .category-group { display: flex; flex-direction: column; flex-shrink: 0; }
+        .category-label {
+            font-size: 0.95rem; margin-bottom: 8px; border-right: 3px solid var(--highlight);
+            padding-right: 10px; font-weight: 600; color: #888;
+        }
+        .items-row { display: flex; gap: 12px; }
+        .poster-item { height: 16vh; width: auto; transition: 0.3s; cursor: pointer; }
+        .poster-item:hover { transform: translateY(-5px); filter: brightness(1.2); }
+
+        .arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: none; color: rgba(255, 255, 255, 0.3);
+            border: none; width: 50px; height: 50px; cursor: pointer;
+            z-index: 10; font-size: 40px; transition: 0.3s;
+        }
+        .arrow:hover { color: var(--highlight); }
+        .arrow-right { left: 15px; } 
+        .arrow-left { right: 15px; }
+
+        /* --- Footer --- */
+        footer { flex-shrink: 0; }
+        .contact-strip { background: #000; padding: 1.2vh 0; text-align: center; font-size: 1.1rem; }
+        .logos-strip {
+            background: #fff; padding: 1.5vh 20px; display: flex;
+            justify-content: center; align-items: center; gap: 45px; flex-wrap: wrap;
+        }
+        .logos-strip img { height: 5vh; min-height: 40px; }
+
+        /* --- Modals --- */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; z-index: 1000;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px);
+            justify-content: center; align-items: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: url('BG.png') no-repeat center center; background-size: cover;
+            width: 90%; max-width: 1100px; max-height: 85vh; padding: 40px; border-radius: 20px;
+            border: 1px solid var(--highlight); position: relative; overflow-y: auto;
+        }
+        .modal-content::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: 0; border-radius: 18px;
+        }
+        .modal-inner { position: relative; z-index: 1; }
+        .close-btn { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #fff; z-index: 10; }
+
+        .modal-cat-title { color: var(--highlight); font-size: 1.8rem; margin: 30px 0 15px 0; border-bottom: 1px solid #444; padding-bottom: 5px; }
+        .grid-row { display: flex; flex-wrap: wrap; gap: 20px; }
+        .grid-row img { height: 18vh; width: auto; border-radius: 4px; border: 1px solid #222; }
+
+        @media (max-width: 768px) {
+            body, html { overflow-y: auto; height: auto; }
+            .hero-slogan { font-size: 6vh; letter-spacing: 2px; }
+            .hero-title { font-size: 4vh; }
+            header { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="LOGO.jpeg" alt="תומר קורן" class="header-logo">
+        <nav>
+            <ul>
+                <li><a onclick="location.reload()">בית</a></li>
+                <li><a onclick="openModal('aboutModal')">אודות</a></li>
+                <li><a onclick="openModal('worksModal')">פרויקטים נבחרים</a></li>
+                <li><a href="mailto:tomerikokoren@gmail.com">צור קשר</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-fixed-area">
+        <h1 class="hero-title">תומר קורן</h1>
+        <h2 class="hero-slogan">לשמוע את התמונה</h2>
+        <section class="about-on-page">
+            מעצב פס קול ועורך סאונד עם 30 שנות ניסיון בהפקות טלוויזיה, קולנוע ופרסום. מתמחה ביצירת סאונד שמספר את הסיפור ומדגיש את החוויה.
+        </section>
+    </main>
+
+    <hr class="glow-line">
+
+    <section class="work-section">
+        <button class="arrow arrow-left" onclick="scrollSlider(1)">&#10095;</button>
+        <div class="slider-wrapper" id="slider">
+            
+            <div class="category-group">
+                <div class="category-label">סדרות טלויזיה</div>
+                <div class="items-row">
+                    <img src="MAKOM.jpg" class="poster-item" alt="מקום שמח">
+                    <img src="PATRICK.jpeg" class="poster-item" alt="פטריק">
+                    <img src="REDSKY.jpeg" class="poster-item" alt="שמיים אדומים">
+                </div>
+            </div>
+
+            <div class="category-group">
+                <div class="category-label">דוקומנטרי</div>
+                <div class="items-row">
+                    <img src="RIKI.jpeg" class="poster-item" alt="נערת רוק">
+                    <img src="AMIR.jpeg" class="poster-item" alt="אמיר פיי גוטמן">
+                    <img src="HAYALOT.jpeg" class="poster-item" alt="חיילות של אף אחד">
+                    <img src="HASHMII.jpeg" class="poster-item" alt="השמיעי קולך">
+                </div>
+            </div>
+
+            <div class="category-group">
+                <div class="category-label">סרטי קולנוע</div>
+                <div class="items-row">
+                    <img src="BITI.jpeg" class="poster-item" alt="בתי אהובתי">
+                    <img src="ALTISKACH.jpeg" class="poster-item" alt="אל תשכח אותי">
+                    <img src="ANOTHER.jpeg" class="poster-item" alt="Another one like me">
+                    <img src="HELLBOY.jpg" class="poster-item" alt="Hellboy">
+                </div>
+            </div>
+
+            <div class="category-group">
+                <div class="category-label">תכניות ריאליטי</div>
+                <div class="items-row">
+                    <img src="HATUNAMI.jpeg" class="poster-item" alt="חתונה ממבט שני">
+                    <img src="WARAT.jpeg" class="poster-item" alt="ווארט">
+                    <img src="NINJA.jpeg" class="poster-item" alt="נינגה">
+                    <img src="HAMEROTZ.jpeg" class="poster-item" alt="המירוץ">
+                    <img src="MISHAKEY.png" class="poster-item" alt="משחקי השף">
+                </div>
+            </div>
+
+            <div class="category-group">
+                <div class="category-label">פרסומות</div>
+                <div class="items-row">
+                    <img src="AIG.jpeg" class="poster-item" alt="AIG">
+                    <img src="MIZRAH.jpeg" class="poster-item" alt="בנק מזרחי">
+                    <img src="LEUMI.jpeg" class="poster-item" alt="בנק לאומי">
+                </div>
+            </div>
+
+        </div>
+        <button class="arrow arrow-right" onclick="scrollSlider(-1)">&#10094;</button>
+    </section>
+
+    <hr class="glow-line">
+
+    <footer>
+        <div class="contact-strip">
+            נייד: <strong>052-6267104</strong> | מייל: <a href="mailto:tomerikokoren@gmail.com" style="color:var(--highlight); text-decoration:none;">tomerikokoren@gmail.com</a>
+        </div>
+        <div class="logos-strip">
+            <img src="Keshet.svg">
+            <img src="Reshet.svg">
+            <img src="Kan11Logo.svg">
+            <img src="HOT.svg">
+            <img src="Yes.svg"> 
+            <img src="CELLCOM.png">
+            <img src="+Partner_tv.png">
+        </div>
+    </footer>
+
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-inner">
+                <span class="close-btn" onclick="closeModal('aboutModal')">&times;</span>
+                <h2 style="color:var(--highlight); font-size: 2.5rem; margin-bottom: 20px;">אודות ותחומי התמחות</h2>
+                <ul style="columns: 2; list-style-type: none; padding: 0; font-size: 1.2rem; line-height: 2.5;">
+                    <li>• עיצוב פס קול ומיקס</li>
+                    <li>• עריכת סאונד ומיקס</li>
+                    <li>• השלמת סאונד לפוסט־פרודקשן</li>
+                    <li>• בחירת מוזיקה ועריכתה</li>
+                    <li>• חיפוש ועריכת אפקטים + פוליז</li>
+                    <li>• הקלטת קריינות ועריכתה</li>
+                    <li>• בימוי קריינים</li>
+                    <li>• קריינות</li>
+                </ul>
+            </div>
+        </div>
+    </div>
     
-    .page-background {
-        position: fixed;
-        inset: 0;
-        background-image: url('BG.png');
-        background-size: cover;
-        background-position: center;
-        opacity: 0.15;
-        z-index: -1;
-        pointer-events: none;
-    }
+    <div id="worksModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-inner">
+                <span class="close-btn" onclick="closeModal('worksModal')">&times;</span>
+                
+                <div class="modal-cat-title">סדרות טלויזיה</div>
+                <div class="grid-row"><img src="MAKOM.jpg"><img src="PATRICK.jpeg"><img src="REDSKY.jpeg"></div>
 
-    .glass-panel { background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-    
-    .category-card, .skill-card { transition: all 0.4s ease; background: rgba(20, 20, 20, 0.8); border: 1px solid #222; border-radius: 1rem; overflow: hidden; }
-    .category-card:hover, .skill-card:hover { transform: translateY(-5px); border-color: #06b6d4; box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2); }
-    
-    .img-container { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); }
-    .portfolio-img { width: 100%; height: 100%; object-fit: contain; }
-  </style>
- </head>
- <body class="h-full overflow-auto">
-  <div class="page-background"></div>
-  
-  <div id="app-wrapper" class="relative z-10 w-full min-h-full">
-   
-   <nav class="fixed top-0 right-0 left-0 z-50 bg-black/80 backdrop-blur-lg border-b border-zinc-800/50 py-4">
-    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-     <div class="flex items-center">
-      <img src="LOGO.jpeg" alt="Tomer Koren Logo" class="h-20 md:h-28 w-auto object-contain">
-     </div>
-     <div class="flex items-center gap-6 md:gap-10">
-      <a href="#about" class="text-zinc-400 hover:text-cyan-400 font-medium transition-colors">אודות</a>
-      <a href="#portfolio" class="text-zinc-400 hover:text-cyan-400 font-medium transition-colors">תיק עבודות</a> 
-      <a href="#contact" class="text-zinc-400 hover:text-cyan-400 font-medium transition-colors">צור קשר</a>
-     </div>
+                <div class="modal-cat-title">דוקומנטרי</div>
+                <div class="grid-row"><img src="RIKI.jpeg"><img src="AMIR.jpeg"><img src="HAYALOT.jpeg"><img src="HASHMII.jpeg"></div>
+
+                <div class="modal-cat-title">סרטי קולנוע</div>
+                <div class="grid-row"><img src="BITI.jpeg"><img src="ALTISKACH.jpeg"><img src="ANOTHER.jpeg"><img src="HELLBOY.jpg"></div>
+
+                <div class="modal-cat-title">תכניות ריאליטי</div>
+                <div class="grid-row"><img src="HATUNAMI.jpeg"><img src="WARAT.jpeg"><img src="NINJA.jpeg"><img src="HAMEROTZ.jpeg"><img src="MISHAKEY.png"></div>
+
+                <div class="modal-cat-title">פרסומות</div>
+                <div class="grid-row"><img src="AIG.jpeg"><img src="MIZRAH.jpeg"><img src="LEUMI.jpeg"></div>
+            </div>
+        </div>
     </div>
-   </nav>
 
-   <section class="min-h-screen flex items-center justify-center text-center px-6 pt-32">
-    <div>
-     <p class="text-cyan-400 text-xl md:text-2xl mb-4 font-light tracking-widest">כשהתמונה נגמרת – הסאונד מתחיל לעבוד</p>
-     <h1 class="text-7xl md:text-9xl font-black mb-4 gradient-text">תומר קורן</h1>
-     <h2 class="text-2xl md:text-4xl font-light text-zinc-400 mb-10">מעצב סאונד</h2>
-     <a href="#portfolio" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-12 py-4 rounded-full transition-all inline-block">לצפייה בפרויקטים</a>
-    </div>
-   </section>
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        window.onclick = function(event) { if (event.target.classList.contains('modal')) { event.target.classList.remove('active'); } }
+        
+        const slider = document.getElementById('slider');
+        slider.addEventListener('wheel', (evt) => {
+            evt.preventDefault();
+            slider.scrollLeft -= evt.deltaY;
+        });
 
-   <section id="about" class="py-24 px-6">
-    <div class="max-w-5xl mx-auto">
-     <div class="glass-panel p-8 md:p-12 rounded-3xl mb-16">
-      <h2 class="text-3xl font-bold mb-6 text-cyan-400 border-r-4 border-cyan-500 pr-4">אודות</h2>
-      <p class="text-xl md:text-2xl text-zinc-200 leading-relaxed font-light">
-       מעצב פס קול ועורך סאונד עם 30 שנות ניסיון בהפקות טלוויזיה, קולנוע ופרסום. מתמחה ביצירת סאונד שמספר את הסיפור ומדגיש את החוויה.
-      </p>
-     </div>
-
-     <h3 class="text-2xl font-bold mb-8 text-right text-zinc-400">תחומי התמחות</h3>
-     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-right">
-      <div class="skill-card p-6"><h4 class="font-bold text-lg mb-2 text-cyan-500">עיצוב פסקול ומיקס</h4></div>
-      <div class="skill-card p-6"><h4 class="font-bold text-lg mb-2 text-cyan-500">עריכת סאונד ומיקס</h4></div>
-      <div class="skill-card p-6"><h4 class="font-bold text-lg mb-2 text-cyan-500">פוסט־פרודקשן</h4><p class="text-xs text-zinc-500">השלמת סאונד מלאה</p></div>
-      <div class="skill-card p-6"><h4 class="font-bold text-lg mb-2 text-cyan-500">בחירה ועריכת מוזיקה</h4></div>
-      <div class="skill-card p-6"><h4 class="font-bold text-lg mb-2 text-cyan-500">אפקטים ופוליז</h4></div>
-      <div class="skill-card p-6"><h4 class="font-bold text-lg mb-2 text-cyan-500">הקלטת קריינות</h4></div>
-      <div class="skill-card p-6"><h4 class="font-bold text-lg mb-2 text-cyan-500">בימוי קריינים</h4></div>
-      <div class="skill-card p-6"><h4 class="font-bold text-lg mb-2 text-cyan-500">קריינות</h4></div>
-     </div>
-    </div>
-   </section>
-
-   <section id="portfolio" class="py-24 px-6">
-    <div class="max-w-6xl mx-auto">
-     <h2 class="text-4xl font-bold mb-16 text-right border-r-4 border-cyan-500 pr-4">תיק עבודות</h2>
-
-     <div class="mb-20">
-      <h3 class="text-2xl font-bold mb-8 text-cyan-400">דוקומנטרי</h3>
-      <div class="grid md:grid-cols-3 gap-8">
-       <div class="category-card">
-        <div class="img-container"><img src="RIKI.jpeg" alt="ריקי גל" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">ריקי גל: נערת רוק</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="HASHMII.jpeg" alt="השמיעי קולך" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">השמיעי קולך</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="PATRICK.jpeg" alt="פטריק" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">פטריק</h4></div>
-       </div>
-      </div>
-     </div>
-
-     <div class="mb-20">
-      <h3 class="text-2xl font-bold mb-8 text-blue-400">סדרות וקולנוע</h3>
-      <div class="grid md:grid-cols-3 gap-8">
-       <div class="category-card">
-        <div class="img-container"><img src="REDSKY.jpeg" alt="שמיים אדומים" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">שמיים אדומים</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="BITI.jpeg" alt="בתי אהובתי" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">בתי אהובתי</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="ALTISKACH.jpeg" alt="אל תשכח" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">אל תשכח</h4></div>
-       </div>
-      </div>
-     </div>
-
-     <div class="mb-20">
-      <h3 class="text-2xl font-bold mb-8 text-pink-400">ריאליטי</h3>
-      <div class="grid md:grid-cols-3 gap-8">
-       <div class="category-card">
-        <div class="img-container"><img src="HAMEROTZ.jpeg" alt="המרוץ למיליון" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">המרוץ למיליון</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="NINJA.jpeg" alt="נינג'ה ישראל" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">נינג'ה ישראל</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="HATUNAMI.jpeg" alt="חתונה ממבט ראשון" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">חתונה ממבט ראשון</h4></div>
-       </div>
-      </div>
-     </div>
-
-     <div class="mb-20">
-      <h3 class="text-2xl font-bold mb-8 text-green-400">פרסומות</h3>
-      <div class="grid md:grid-cols-3 gap-8">
-       <div class="category-card">
-        <div class="img-container"><img src="LEUMI.jpeg" alt="בנק לאומי" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">בנק לאומי</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="AIG.jpeg" alt="AIG" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">AIG</h4></div>
-       </div>
-       <div class="category-card">
-        <div class="img-container"><img src="MIZRAH.jpeg" alt="מזרחי טפחות" class="portfolio-img"></div>
-        <div class="p-5"><h4 class="text-lg font-bold">מזרחי טפחות</h4></div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section>
-
-   <section id="contact" class="py-24 bg-black/40 px-6 backdrop-blur-sm">
-    <div class="max-w-4xl mx-auto text-center">
-     <h2 class="text-3xl font-bold mb-10 text-cyan-400">יצירת קשר</h2>
-     <div class="flex flex-col md:flex-row gap-6 justify-center">
-      <a href="tel:052-6267104" class="bg-zinc-800/80 px-10 py-6 rounded-2xl hover:bg-cyan-900/50 transition-all backdrop-blur-md border border-zinc-700/50">
-       <span class="block text-zinc-500 text-sm">נייד</span>
-       <span class="text-xl font-bold" dir="ltr">052-6267104</span>
-      </a>
-      <a href="mailto:tomerikokoren@gmail.com" class="bg-zinc-800/80 px-10 py-6 rounded-2xl hover:bg-cyan-900/50 transition-all backdrop-blur-md border border-zinc-700/50">
-       <span class="block text-zinc-500 text-sm">אימייל</span>
-       <span class="text-xl font-bold">tomerikokoren@gmail.com</span>
-      </a>
-     </div>
-    </div>
-   </section>
-
-   <footer class="py-10 text-center text-zinc-600 border-t border-zinc-800/50 bg-black/80 backdrop-blur-md">
-    <p>© 2026 תומר קורן | מעצב סאונד</p>
-   </footer>
-  </div>
- </body>
+        function scrollSlider(direction) {
+            const scrollAmount = window.innerWidth * 0.4;
+            slider.scrollBy({ left: -direction * scrollAmount, behavior: 'smooth' });
+        }
+    </script>
+</body>
 </html>
