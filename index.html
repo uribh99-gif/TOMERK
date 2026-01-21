@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>תומר קורן - עיצוב פסקול</title>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --highlight: #00e5ff;
-            --glow: 0 0 20px rgba(0, 229, 255, 0.7), 0 0 40px rgba(0, 229, 255, 0.3);
+            --glow: 0 0 15px var(--highlight), 0 0 30px var(--highlight), 0 0 60px rgba(0, 229, 255, 0.4);
         }
 
         * { box-sizing: border-box; }
@@ -16,21 +16,12 @@
         body, html {
             margin: 0; padding: 0;
             height: 100vh; width: 100vw;
-            background-color: #000;
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('BG.png') no-repeat center center fixed;
+            background-size: cover;
             color: #fff;
             font-family: 'Assistant', sans-serif;
             overflow: hidden;
             display: flex; flex-direction: column;
-        }
-
-        /* הגדרת הרקע ב-65% נראות */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('BG.png') no-repeat center center;
-            background-size: cover;
-            z-index: -1;
         }
 
         /* --- Header --- */
@@ -47,18 +38,32 @@
         }
         nav ul li a:hover { color: var(--highlight); }
 
-        /* --- Main Area --- */
+        /* --- Main Content Area --- */
         .main-fixed-area {
             flex: 1; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             text-align: center; padding: 0 10%;
         }
-        .hero-title { font-size: 7vh; margin: 0; font-weight: 700; opacity: 0.95; }
-        .hero-slogan { 
-            font-size: 10vh; color: var(--highlight); 
-            margin: 10px 0 30px 0; font-weight: 200; 
-            text-shadow: var(--glow); letter-spacing: 4px; line-height: 1;
+        
+        /* שינוי: עיצוב הלוגו המרכזי במקום השם */
+        .hero-logo-main {
+            height: 18vh; /* גודל הלוגו במרכז */
+            width: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
         }
+
+        /* שינוי: סלוגן שמן יותר (Bold) */
+        .hero-slogan { 
+            font-size: 10vh; 
+            color: var(--highlight); 
+            margin: 0 0 25px 0; 
+            font-weight: 800; /* פונט שמן מאוד */
+            text-shadow: var(--glow); 
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
         .about-on-page {
             max-width: 800px; background: rgba(0, 0, 0, 0.5);
             padding: 2.5vh 4vh; border-radius: 20px; font-size: 1.3rem;
@@ -66,9 +71,13 @@
             backdrop-filter: blur(5px);
         }
 
-        .glow-line { height: 1px; background: var(--highlight); box-shadow: 0 0 15px var(--highlight); border: none; width: 100%; flex-shrink: 0; }
+        /* --- Dividers --- */
+        .glow-line {
+            height: 1px; background: var(--highlight);
+            box-shadow: 0 0 15px var(--highlight); border: none; width: 100%; flex-shrink: 0;
+        }
 
-        /* --- Project Slider --- */
+        /* --- Project Slider Area --- */
         .work-section {
             background: rgba(0, 0, 0, 0.85);
             position: relative; display: flex; align-items: center; padding: 1.5vh 60px;
@@ -118,25 +127,29 @@
         }
         .modal.active { display: flex; }
         .modal-content {
-            background: #111; width: 90%; max-width: 1100px;
-            max-height: 85vh; padding: 40px; border-radius: 20px;
+            background: url('BG.png') no-repeat center center; background-size: cover;
+            width: 90%; max-width: 1100px; max-height: 85vh; padding: 40px; border-radius: 20px;
             border: 1px solid var(--highlight); position: relative; overflow-y: auto;
         }
+        .modal-content::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: 0; border-radius: 18px;
+        }
+        .modal-inner { position: relative; z-index: 1; }
         .close-btn { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; color: #fff; z-index: 10; }
 
         .modal-cat-title { color: var(--highlight); font-size: 1.8rem; margin: 30px 0 15px 0; border-bottom: 1px solid #444; padding-bottom: 5px; }
         .grid-row { display: flex; flex-wrap: wrap; gap: 20px; }
-        .grid-row img { height: 18vh; width: auto; border-radius: 4px; border: 1px solid #222; transition: 0.3s; cursor: pointer; }
+        .grid-row img { height: 18vh; width: auto; border-radius: 4px; border: 1px solid #222; }
 
-        /* Video Container */
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
         @media (max-width: 768px) {
             body, html { overflow-y: auto; height: auto; }
             .hero-slogan { font-size: 6vh; letter-spacing: 2px; }
+            .hero-logo-main { height: 12vh; }
             header { flex-direction: column; gap: 10px; }
-            .grid-row img { height: 120px; }
         }
     </style>
 </head>
@@ -155,8 +168,10 @@
     </header>
 
     <main class="main-fixed-area">
-        <h1 class="hero-title">תומר קורן</h1>
+        <img src="LOGO.jpeg" alt="תומר קורן" class="hero-logo-main">
+        
         <h2 class="hero-slogan">לשמוע את התמונה</h2>
+        
         <section class="about-on-page">
             מעצב פס קול ועורך סאונד עם 30 שנות ניסיון בהפקות טלוויזיה, קולנוע ופרסום. מתמחה ביצירת סאונד שמספר את הסיפור ומדגיש את החוויה.
         </section>
@@ -236,13 +251,13 @@
             נייד: <strong>052-6267104</strong> | מייל: <a href="mailto:tomerikokoren@gmail.com" style="color:var(--highlight); text-decoration:none;">tomerikokoren@gmail.com</a>
         </div>
         <div class="logos-strip">
-            <img src="Keshet.svg">
-            <img src="Reshet.svg">
-            <img src="Kan11Logo.svg">
-            <img src="HOT.svg">
-            <img src="Yes.svg"> 
-            <img src="CELLCOM.png">
-            <img src="+Partner_tv.png">
+            <img src="Keshet.svg" alt="קשת">
+            <img src="Reshet.svg" alt="רשת">
+            <img src="Kan11Logo.svg" alt="כאן 11">
+            <img src="HOT.svg" alt="HOT">
+            <img src="Yes.svg" alt="Yes"> 
+            <img src="CELLCOM.png" alt="סלקום">
+            <img src="+Partner_tv.png" alt="פרטנר">
         </div>
     </footer>
 
@@ -255,69 +270,58 @@
 
     <div id="aboutModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('aboutModal')">&times;</span>
-            <h2 style="color:var(--highlight); font-size: 2.5rem; margin-bottom: 20px;">אודות ותחומי התמחות</h2>
-            <ul style="columns: 2; list-style-type: none; padding: 0; font-size: 1.2rem; line-height: 2.5;">
-                <li>• עיצוב פס קול ומיקס</li>
-                <li>• עריכת סאונד ומיקס</li>
-                <li>• השלמת סאונד לפוסט־פרודקשן</li>
-                <li>• בחירת מוזיקה ועריכתה</li>
-                <li>• חיפוש ועריכת אפקטים + פוליז</li>
-                <li>• הקלטת קריינות ועריכתה</li>
-                <li>• בימוי קריינים</li>
-                <li>• קריינות</li>
-            </ul>
+            <div class="modal-inner">
+                <span class="close-btn" onclick="closeModal('aboutModal')">&times;</span>
+                <h2 style="color:var(--highlight); font-size: 2.5rem; margin-bottom: 20px;">אודות ותחומי התמחות</h2>
+                <ul style="columns: 2; list-style-type: none; padding: 0; font-size: 1.2rem; line-height: 2.5;">
+                    <li>• עיצוב פס קול ומיקס</li>
+                    <li>• עריכת סאונד ומיקס</li>
+                    <li>• השלמת סאונד לפוסט־פרודקשן</li>
+                    <li>• בחירת מוזיקה ועריכתה</li>
+                    <li>• חיפוש ועריכת אפקטים + פוליז</li>
+                    <li>• הקלטת קריינות ועריכתה</li>
+                    <li>• בימוי קריינים</li>
+                    <li>• קריינות</li>
+                </ul>
+            </div>
         </div>
     </div>
     
     <div id="worksModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('worksModal')">&times;</span>
-            <div class="modal-cat-title">סרטי אנימציה</div>
-            <div class="grid-row">
-                <img src="https://img.youtube.com/vi/RCDXa5i_ZPY/mqdefault.jpg" onclick="playVideo('RCDXa5i_ZPY')">
-                <img src="https://img.youtube.com/vi/PwtONGPgYJw/mqdefault.jpg" onclick="playVideo('PwtONGPgYJw')">
+            <div class="modal-inner">
+                <span class="close-btn" onclick="closeModal('worksModal')">&times;</span>
+                <div class="modal-cat-title">סרטי אנימציה</div>
+                <div class="grid-row"><img src="https://img.youtube.com/vi/RCDXa5i_ZPY/mqdefault.jpg" onclick="playVideo('RCDXa5i_ZPY')"><img src="https://img.youtube.com/vi/PwtONGPgYJw/mqdefault.jpg" onclick="playVideo('PwtONGPgYJw')"></div>
+                <div class="modal-cat-title">סדרות טלויזיה</div>
+                <div class="grid-row"><img src="MAKOM.jpg"><img src="PATRICK.jpeg"><img src="REDSKY.jpeg"></div>
+                <div class="modal-cat-title">דוקומנטרי</div>
+                <div class="grid-row"><img src="RIKI.jpeg"><img src="AMIR.jpeg"><img src="HAYALOT.jpeg"><img src="HASHMII.jpeg"></div>
+                <div class="modal-cat-title">סרטי קולנוע</div>
+                <div class="grid-row"><img src="BITI.jpeg"><img src="ALTISKACH.jpeg"><img src="ANOTHER.jpeg"><img src="HELLBOY.jpg"></div>
+                <div class="modal-cat-title">תכניות ריאליטי</div>
+                <div class="grid-row"><img src="HATUNAMI.jpeg"><img src="WARAT.jpeg"><img src="NINJA.jpeg"><img src="HAMEROTZ.jpeg"><img src="MISHAKEY.png"></div>
+                <div class="modal-cat-title">פרסומות</div>
+                <div class="grid-row"><img src="AIG.jpeg"><img src="MIZRAH.jpeg"><img src="LEUMI.jpeg"></div>
             </div>
-            <div class="modal-cat-title">סדרות טלויזיה</div>
-            <div class="grid-row"><img src="MAKOM.jpg"><img src="PATRICK.jpeg"><img src="REDSKY.jpeg"></div>
-            <div class="modal-cat-title">דוקומנטרי</div>
-            <div class="grid-row"><img src="RIKI.jpeg"><img src="AMIR.jpeg"><img src="HAYALOT.jpeg"><img src="HASHMII.jpeg"></div>
-            <div class="modal-cat-title">סרטי קולנוע</div>
-            <div class="grid-row"><img src="BITI.jpeg"><img src="ALTISKACH.jpeg"><img src="ANOTHER.jpeg"><img src="HELLBOY.jpg"></div>
-            <div class="modal-cat-title">תכניות ריאליטי</div>
-            <div class="grid-row"><img src="HATUNAMI.jpeg"><img src="WARAT.jpeg"><img src="NINJA.jpeg"><img src="HAMEROTZ.jpeg"><img src="MISHAKEY.png"></div>
-            <div class="modal-cat-title">פרסומות</div>
-            <div class="grid-row"><img src="AIG.jpeg"><img src="MIZRAH.jpeg"><img src="LEUMI.jpeg"></div>
         </div>
     </div>
 
     <script>
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-        // נגן יוטיוב
         function playVideo(id) {
-            const playerArea = document.getElementById('playerArea');
-            playerArea.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            document.getElementById('playerArea').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
             document.getElementById('videoModal').classList.add('active');
         }
         function closeVideo() {
             document.getElementById('playerArea').innerHTML = '';
             document.getElementById('videoModal').classList.remove('active');
         }
-
         window.onclick = function(event) { if (event.target.classList.contains('modal')) { closeModal(event.target.id); closeVideo(); } }
-        
         const slider = document.getElementById('slider');
-        slider.addEventListener('wheel', (evt) => {
-            evt.preventDefault();
-            slider.scrollLeft -= evt.deltaY;
-        });
-
-        function scrollSlider(direction) {
-            const scrollAmount = window.innerWidth * 0.4;
-            slider.scrollBy({ left: -direction * scrollAmount, behavior: 'smooth' });
-        }
+        slider.addEventListener('wheel', (evt) => { evt.preventDefault(); slider.scrollLeft -= evt.deltaY; });
+        function scrollSlider(direction) { const scrollAmount = window.innerWidth * 0.4; slider.scrollBy({ left: -direction * scrollAmount, behavior: 'smooth' }); }
     </script>
 </body>
 </html>
