@@ -92,7 +92,6 @@
         }
         .items-row { display: flex; gap: 12px; }
 
-        /* --- Poster & Video Icon Styling --- */
         .poster-item { 
             height: 16vh; 
             width: auto; 
@@ -108,7 +107,6 @@
         }
         .poster-item:hover { transform: translateY(-5px); filter: brightness(1.2); }
 
-        /* אייקון הנגן לסרטונים */
         .video-item::after {
             content: '▶';
             position: absolute;
@@ -124,12 +122,8 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
             transition: 0.3s;
         }
-        .video-item:hover::after {
-            background: var(--highlight);
-            box-shadow: var(--glow);
-            transform: translate(-50%, -50%) scale(1.1);
-        }
 
+        /* עיצוב חיצים */
         .arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: none; color: rgba(255, 255, 255, 0.3);
@@ -137,8 +131,8 @@
             z-index: 10; font-size: 40px; transition: 0.3s;
         }
         .arrow:hover { color: var(--highlight); }
-        .arrow-right { left: 15px; } 
-        .arrow-left { right: 15px; }
+        .arrow-right { right: 15px; } /* מיקום פיזי ימין */
+        .arrow-left { left: 15px; }   /* מיקום פיזי שמאל */
 
         /* --- Footer --- */
         footer { flex-shrink: 0; }
@@ -208,7 +202,8 @@
     <hr class="glow-line">
 
     <section class="work-section">
-        <button class="arrow arrow-left" onclick="scrollSlider(1)">&#10095;</button>
+        <button class="arrow arrow-left" onclick="scrollSlider(-1)">&#10095;</button>
+        
         <div class="slider-wrapper" id="slider">
             
             <div class="category-group">
@@ -273,7 +268,8 @@
             </div>
 
         </div>
-        <button class="arrow arrow-right" onclick="scrollSlider(-1)">&#10094;</button>
+
+        <button class="arrow arrow-right" onclick="scrollSlider(1)">&#10094;</button>
     </section>
 
     <hr class="glow-line">
@@ -358,9 +354,18 @@
             document.getElementById('videoModal').classList.remove('active');
         }
         window.onclick = function(event) { if (event.target.classList.contains('modal')) { closeModal(event.target.id); closeVideo(); } }
+        
         const slider = document.getElementById('slider');
-        slider.addEventListener('wheel', (evt) => { evt.preventDefault(); slider.scrollLeft -= evt.deltaY; });
-        function scrollSlider(direction) { const scrollAmount = window.innerWidth * 0.4; slider.scrollBy({ left: -direction * scrollAmount, behavior: 'smooth' }); }
+        
+        slider.addEventListener('wheel', (evt) => {
+            evt.preventDefault();
+            slider.scrollLeft += evt.deltaY;
+        });
+
+        function scrollSlider(direction) {
+            const scrollAmount = window.innerWidth * 0.4;
+            slider.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
